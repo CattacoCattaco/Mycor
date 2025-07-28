@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "shroomlight",
+    "pattern": [
+        "GGG",
+        "GWG",
+        "GGG"
+    ],
+    "key": {
+        "G": "mycor:glowshroom_spores",
+        "W": "minecraft:warped_wart_block"
+    },
+    "result": {
+        "id": "minecraft:shroomlight",
+        "count": 1
+    }
+}

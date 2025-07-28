@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "mycor",
+	"version": "${version}",
+	"name": "Mycor",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Cattaco aka Pookstir"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/mycor/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"io.github.cattacocattaco.mycor.Mycor"
+		],
+		"client": [
+			"io.github.cattacocattaco.mycor.MycorClient"
+		]
+	},
+	"mixins": [
+		"mycor.mixins.json",
+		{
+			"config": "mycor.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.21.8",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

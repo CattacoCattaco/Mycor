@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "shroomlight",
+    "pattern": [
+        "GGG",
+        "GNG",
+        "GGG"
+    ],
+    "key": {
+        "G": "mycor:glowshroom_spores",
+        "N": "minecraft:nether_wart_block"
+    },
+    "result": {
+        "id": "minecraft:shroomlight",
+        "count": 1
+    }
+}
