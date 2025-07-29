@@ -3,7 +3,7 @@
 	"id": "mycor",
 	"version": "${version}",
 	"name": "Mycor",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "This is a mod that adds a fungal dimension to the game",
 	"authors": [
 		"Cattaco aka Pookstir"
 	],
@@ -20,6 +20,9 @@
 		],
 		"client": [
 			"io.github.cattacocattaco.mycor.MycorClient"
+		],
+		"fabric-datagen": [
+			"io.github.cattacocattaco.mycor.MycorDataGenerator"
 		]
 	},
 	"mixins": [
@@ -36,6 +39,6 @@
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
+
 	}
 }

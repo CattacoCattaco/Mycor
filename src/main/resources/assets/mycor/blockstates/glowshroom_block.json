@@ -1,0 +1,185 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "mycor:block/glowshroom_block"
+      },
+      "when": {
+        "north": "true",
+        "sheared": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "mycor:block/glowshroom_block",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "sheared": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "mycor:block/glowshroom_block",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "south": "true",
+        "sheared": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "mycor:block/glowshroom_block",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "west": "true",
+        "sheared": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "mycor:block/glowshroom_block",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "up": "true",
+        "sheared": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "mycor:block/glowshroom_block",
+        "uvlock": true,
+        "x": 90
+      },
+      "when": {
+        "down": "true",
+        "sheared": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "mycor:block/glowshroom_block_sheared"
+      },
+      "when": {
+        "north": "true",
+        "sheared": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "mycor:block/glowshroom_block_sheared",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "sheared": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "mycor:block/glowshroom_block_sheared",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "south": "true",
+        "sheared": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "mycor:block/glowshroom_block_sheared",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "west": "true",
+        "sheared": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "mycor:block/glowshroom_block_sheared",
+        "uvlock": true,
+        "x": 270
+      },
+      "when": {
+        "up": "true",
+        "sheared": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "mycor:block/glowshroom_block_sheared",
+        "uvlock": true,
+        "x": 90
+      },
+      "when": {
+        "down": "true",
+        "sheared": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "minecraft:block/mushroom_block_inside"
+      },
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "minecraft:block/mushroom_block_inside",
+        "y": 90
+      },
+      "when": {
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "minecraft:block/mushroom_block_inside",
+        "y": 180
+      },
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "minecraft:block/mushroom_block_inside",
+        "y": 270
+      },
+      "when": {
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "minecraft:block/mushroom_block_inside",
+        "x": 270
+      },
+      "when": {
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "minecraft:block/mushroom_block_inside",
+        "x": 90
+      },
+      "when": {
+        "down": "false"
+      }
+    }
+  ]
+}

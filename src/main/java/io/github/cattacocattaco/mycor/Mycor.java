@@ -1,11 +1,13 @@
 package io.github.cattacocattaco.mycor;
 
+import io.github.cattacocattaco.mycor.block.ModBlocks;
 import io.github.cattacocattaco.mycor.item.ModItems;
 
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 
 import org.slf4j.Logger;
@@ -28,11 +30,15 @@ public class Mycor implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
 
 		ModItems.initialize();
+		ModBlocks.initialize();
 
 		// Get the event for modifying entries in the ingredients group.
 		// And register an event handler that adds our suspicious item to the ingredients group.
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
 				.register((itemGroup) -> itemGroup.add(ModItems.GLOWSHROOM_SPORES));
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register((itemGroup) -> {
+			itemGroup.add(ModBlocks.GLOWSHROOM_BLOCK.asItem());
+		});
 
 		// Add the glowshroom spores to the composting registry with a 30% chance of increasing the composter's level.
 		CompostingChanceRegistry.INSTANCE.add(ModItems.GLOWSHROOM_SPORES, 0.3f);

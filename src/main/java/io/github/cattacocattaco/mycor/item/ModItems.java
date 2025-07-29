@@ -11,8 +11,7 @@ import net.minecraft.util.Identifier;
 import java.util.function.Function;
 
 public class ModItems {
-    public static void initialize() {
-    }
+    public static void initialize() {}
 
     public static Item register(String name, Function<Item.Settings, Item> itemFactory, Item.Settings settings) {
         // Create the item key.
