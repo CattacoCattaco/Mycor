@@ -1,6 +1,8 @@
 package io.github.cattacocattaco.mycor.world.gen.feature;
 
 import com.mojang.serialization.Codec;
+import io.github.cattacocattaco.mycor.Mycor;
+import io.github.cattacocattaco.mycor.misc.MutableInt;
 import net.minecraft.block.BlockState;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
@@ -11,25 +13,151 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
+import java.util.Vector;
+
 public abstract class HugeMycorMushroomFeature extends Feature<HugeMycorMushroomFeatureConfig> {
     public HugeMycorMushroomFeature(Codec<HugeMycorMushroomFeatureConfig> codec) {
         super(codec);
     }
 
-    protected void generateStem(WorldAccess world, Random random, BlockPos pos, HugeMycorMushroomFeatureConfig config, int height, BlockPos.Mutable mutablePos) {
-        for(int i = 0; i < height; ++i) {
-            mutablePos.set(pos).move(Direction.UP, i);
-            this.generateStem(world, mutablePos, config.stemProvider.get(random, pos));
-        }
-
+    protected void generateStem(WorldAccess world, Random random, BlockPos pos, HugeMycorMushroomFeatureConfig config, int height, BlockPos.Mutable mutablePos, Vector<BlockPos.Mutable> endPositions) {
+        generateStem(world, random, pos, config, height, mutablePos, endPositions, 0, 0, new MutableInt(0), 0, Direction.UP, 100);
     }
 
-    protected void generateStem(WorldAccess world, BlockPos.Mutable pos, BlockState state) {
+    protected void generateStem(WorldAccess world, Random random, BlockPos pos, HugeMycorMushroomFeatureConfig config, int height, BlockPos.Mutable mutablePos, Vector<BlockPos.Mutable> endPositions, int depth, int currentHeight, MutableInt branchCount, int branchDepth, Direction from, int stepsSinceTurn) {
+        int newCurrentHeight = currentHeight;
+        if(from == Direction.UP) {
+            newCurrentHeight++;
+        }
+
+        int newBranchDepth = branchDepth;
+
+        Direction newDirection = from;
+
+        int newStepsSinceTurn = stepsSinceTurn + 1;
+
+        this.placeBlock(world, mutablePos, config.stemProvider.get(random, pos));
+
+        if((depth < height || currentHeight < config.minStemHeight) && currentHeight < config.maxStemHeight) {
+            if(depth >= height - 5) {
+                if(stepsSinceTurn < 6 && from != Direction.UP) {
+                    if(world.getBlockState((new BlockPos.Mutable()).set(mutablePos.toImmutable()).move(from)).isAir()) {
+                        mutablePos.move(newDirection);
+                    }
+                    else {
+                        newDirection = getRandomEmptyDirection(world, random, mutablePos, Direction.UP);
+                        mutablePos.move(newDirection);
+                    }
+
+                    generateStem(world, random, pos, config, height, mutablePos, endPositions, depth, newCurrentHeight, branchCount, newBranchDepth, newDirection, newStepsSinceTurn);
+                }
+
+                newDirection = Direction.UP;
+                mutablePos.move(newDirection);
+                newCurrentHeight++;
+            }
+            else if(depth > 3 && config.branching && branchCount.getValue() < 10 && branchDepth < 3 && (stepsSinceTurn > 6 || (stepsSinceTurn > 3 && from == Direction.UP)) && random.nextFloat() < 0.35f) {
+                branchCount.increment();
+                newBranchDepth++;
+
+                BlockPos.Mutable branchPos = new BlockPos.Mutable();
+                branchPos.set(new BlockPos(mutablePos.getX(), mutablePos.getY(), mutablePos.getZ()));
+                Direction branchDirection = getRandomEmptyDirection(world, random, mutablePos, from);
+                branchPos.move(branchDirection);
+
+                newStepsSinceTurn = 0;
+
+                generateStem(world, random, pos, config, height + random.nextInt(5), branchPos, endPositions, depth + 1, newCurrentHeight, branchCount, newBranchDepth, branchDirection, newStepsSinceTurn);
+
+                newDirection = getRandomEmptyDirection(world, random, mutablePos, Direction.DOWN);
+                mutablePos.move(newDirection);
+            }
+            else if(depth > 3 && (stepsSinceTurn > 6 || (stepsSinceTurn > 3 && from == Direction.UP)) && random.nextFloat() < 0.3f) {
+                newDirection = getRandomEmptyDirection(world, random, mutablePos, from);
+                mutablePos.move(newDirection);
+
+                newStepsSinceTurn = 0;
+            }
+            else {
+                if(world.getBlockState((new BlockPos.Mutable()).set(mutablePos.toImmutable()).move(from)).isAir()) {
+                    mutablePos.move(newDirection);
+                }
+                else {
+                    newDirection = getRandomEmptyDirection(world, random, mutablePos, from);
+                    mutablePos.move(newDirection);
+                }
+            }
+
+            BlockState blockState = world.getBlockState(mutablePos);
+            if(blockState.isAir() || blockState.isIn(BlockTags.REPLACEABLE_BY_MUSHROOMS)) {
+                generateStem(world, random, pos, config, height, mutablePos, endPositions, depth + 1, newCurrentHeight, branchCount, newBranchDepth, newDirection, newStepsSinceTurn);
+            }
+        }
+        else {
+            endPositions.add(mutablePos);
+        }
+    }
+
+    protected void placeBlock(WorldAccess world, BlockPos.Mutable pos, BlockState state) {
         BlockState blockState = world.getBlockState(pos);
         if (blockState.isAir() || blockState.isIn(BlockTags.REPLACEABLE_BY_MUSHROOMS)) {
             this.setBlockState(world, pos, state);
         }
 
+    }
+
+    protected Direction getRandomEmptyDirection(WorldAccess world, Random random, BlockPos.Mutable mutablePos, Direction avoid) {
+        Vector<Direction> emptyDirections = new Vector<>();
+
+        if(avoid != Direction.UP && world.getBlockState(mutablePos.up()).isAir()) {
+            emptyDirections.add(Direction.UP);
+        }
+        if(avoid != Direction.EAST && world.getBlockState(mutablePos.east()).isAir()) {
+            emptyDirections.add(Direction.EAST);
+        }
+        if(avoid != Direction.WEST && world.getBlockState(mutablePos.west()).isAir()) {
+            emptyDirections.add(Direction.WEST);
+        }
+        if(avoid != Direction.NORTH && world.getBlockState(mutablePos.north()).isAir()) {
+            emptyDirections.add(Direction.NORTH);
+        }
+        if(avoid != Direction.SOUTH && world.getBlockState(mutablePos.south()).isAir()) {
+            emptyDirections.add(Direction.SOUTH);
+        }
+
+        if(!emptyDirections.isEmpty()) {
+            int directionIndex = random.nextInt(emptyDirections.size());
+
+            return emptyDirections.get(directionIndex);
+        }
+        else {
+            Vector<Direction> replaceableDirections = new Vector<>();
+
+            if(avoid != Direction.UP && world.getBlockState(mutablePos.up()).isIn(BlockTags.REPLACEABLE_BY_MUSHROOMS)) {
+                replaceableDirections.add(Direction.UP);
+            }
+            if(avoid != Direction.EAST && world.getBlockState(mutablePos.east()).isIn(BlockTags.REPLACEABLE_BY_MUSHROOMS)) {
+                replaceableDirections.add(Direction.EAST);
+            }
+            if(avoid != Direction.WEST && world.getBlockState(mutablePos.west()).isIn(BlockTags.REPLACEABLE_BY_MUSHROOMS)) {
+                replaceableDirections.add(Direction.WEST);
+            }
+            if(avoid != Direction.NORTH && world.getBlockState(mutablePos.north()).isIn(BlockTags.REPLACEABLE_BY_MUSHROOMS)) {
+                replaceableDirections.add(Direction.NORTH);
+            }
+            if(avoid != Direction.SOUTH && world.getBlockState(mutablePos.south()).isIn(BlockTags.REPLACEABLE_BY_MUSHROOMS)) {
+                replaceableDirections.add(Direction.SOUTH);
+            }
+
+            if(!replaceableDirections.isEmpty()) {
+                int directionIndex = random.nextInt(replaceableDirections.size());
+
+                return replaceableDirections.get(directionIndex);
+            }
+            else {
+                return avoid;
+            }
+        }
     }
 
     protected int getHeight(Random random, HugeMycorMushroomFeatureConfig config) {
@@ -47,12 +175,13 @@ public abstract class HugeMycorMushroomFeature extends Feature<HugeMycorMushroom
             BlockState blockState = world.getBlockState(pos.down());
             if (!isSoil(blockState) && !blockState.isIn(BlockTags.MUSHROOM_GROW_BLOCK)) {
                 return false;
-            } else {
-                for(int j = 0; j <= height; ++j) {
+            }
+            else {
+                for (int j = 0; j <= height; ++j) {
                     int k = this.getCapSize(-1, -1, config.foliageRadius, j);
 
-                    for(int l = -k; l <= k; ++l) {
-                        for(int m = -k; m <= k; ++m) {
+                    for (int l = -k; l <= k; ++l) {
+                        for (int m = -k; m <= k; ++m) {
                             BlockState blockState2 = world.getBlockState(mutablePos.set(pos, l, j, m));
                             if (!blockState2.isAir() && !blockState2.isIn(BlockTags.LEAVES)) {
                                 return false;
@@ -72,14 +201,19 @@ public abstract class HugeMycorMushroomFeature extends Feature<HugeMycorMushroom
         StructureWorldAccess structureWorldAccess = context.getWorld();
         BlockPos blockPos = context.getOrigin();
         Random random = context.getRandom();
-        HugeMycorMushroomFeatureConfig hugeMycorMushroomFeatureConfig = (HugeMycorMushroomFeatureConfig)context.getConfig();
+        HugeMycorMushroomFeatureConfig hugeMycorMushroomFeatureConfig = context.getConfig();
         int i = this.getHeight(random, hugeMycorMushroomFeatureConfig);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
         if (!this.canGenerate(structureWorldAccess, blockPos, i, mutable, hugeMycorMushroomFeatureConfig)) {
             return false;
-        } else {
-            this.generateCap(structureWorldAccess, random, blockPos, i, mutable, hugeMycorMushroomFeatureConfig);
-            this.generateStem(structureWorldAccess, random, blockPos, hugeMycorMushroomFeatureConfig, i, mutable);
+        }
+        else {
+            mutable.set(blockPos);
+            Vector<BlockPos.Mutable> endPositions = new Vector<>();
+            this.generateStem(structureWorldAccess, random, blockPos, hugeMycorMushroomFeatureConfig, i, mutable, endPositions);
+            for (BlockPos.Mutable endPosition : endPositions) {
+                this.generateCap(structureWorldAccess, random, endPosition.toImmutable(), 1, new BlockPos.Mutable(endPosition.getX(), endPosition.getY(), endPosition.getZ()), hugeMycorMushroomFeatureConfig);
+            }
             return true;
         }
     }

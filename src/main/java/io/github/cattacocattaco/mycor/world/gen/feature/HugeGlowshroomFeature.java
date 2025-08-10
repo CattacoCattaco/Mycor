@@ -13,27 +13,34 @@ public class HugeGlowshroomFeature extends HugeMycorMushroomFeature {
     }
 
     @Override
-    protected void generateCap(WorldAccess world, Random random, BlockPos start, int y, BlockPos.Mutable mutable, HugeMycorMushroomFeatureConfig config) {
-        for(int i = y - 3; i <= y; ++i) {
-            int j = i < y ? config.foliageRadius : config.foliageRadius - 1;
-            int k = config.foliageRadius - 2;
+    protected void generateCap(WorldAccess world, Random random, BlockPos start, int offsetY, BlockPos.Mutable mutable, HugeMycorMushroomFeatureConfig config) {
+        for(int y = offsetY - (config.foliageRadius * 2 - 1); y <= offsetY; ++y) {
+            int edgePos = y < offsetY ? config.foliageRadius : config.foliageRadius - 1;
+            int exposureBound = config.foliageRadius - 2;
 
-            for(int l = -j; l <= j; ++l) {
-                for(int m = -j; m <= j; ++m) {
-                    boolean bl = l == -j;
-                    boolean bl2 = l == j;
-                    boolean bl3 = m == -j;
-                    boolean bl4 = m == j;
-                    boolean bl5 = bl || bl2;
-                    boolean bl6 = bl3 || bl4;
-                    if (i >= y || bl5 != bl6) {
-                        mutable.set(start, l, i, m);
+            for(int x = -edgePos; x <= edgePos; ++x) {
+                for(int z = -edgePos; z <= edgePos; ++z) {
+                    boolean onWestEdge = x == -edgePos;
+                    boolean onEastEdge = x == edgePos;
+                    boolean onNorthEdge = z == -edgePos;
+                    boolean onSouthEdge = z == edgePos;
+                    boolean onXEdge = onWestEdge || onEastEdge;
+                    boolean onYEdge = onNorthEdge || onSouthEdge;
+                    boolean nonCornerEdge = onXEdge != onYEdge;
+                    if (y >= offsetY || nonCornerEdge) {
+                        // Sets mutable pos to start + (x, y, z)
+                        mutable.set(start, x, y, z);
+
                         BlockState blockState = config.capProvider.get(random, start);
                         if (blockState.contains(MushroomBlock.WEST) && blockState.contains(MushroomBlock.EAST) && blockState.contains(MushroomBlock.NORTH) && blockState.contains(MushroomBlock.SOUTH) && blockState.contains(MushroomBlock.UP)) {
-                            blockState = (BlockState)((BlockState)((BlockState)((BlockState)((BlockState)blockState.with(MushroomBlock.UP, i >= y - 1)).with(MushroomBlock.WEST, l < -k)).with(MushroomBlock.EAST, l > k)).with(MushroomBlock.NORTH, m < -k)).with(MushroomBlock.SOUTH, m > k);
+                            boolean westExposed = x < -exposureBound;
+                            boolean eastExposed = x > exposureBound;
+                            boolean northExposed = z < -exposureBound;
+                            boolean southExposed = z > exposureBound;
+                            blockState = (BlockState)((BlockState)((BlockState)((BlockState)((BlockState)blockState.with(MushroomBlock.UP, y >= offsetY - 1)).with(MushroomBlock.WEST, westExposed)).with(MushroomBlock.EAST, eastExposed)).with(MushroomBlock.NORTH, northExposed)).with(MushroomBlock.SOUTH, southExposed);
                         }
 
-                        this.generateStem(world, mutable, blockState);
+                        this.placeBlock(world, mutable, blockState);
                     }
                 }
             }
@@ -44,7 +51,7 @@ public class HugeGlowshroomFeature extends HugeMycorMushroomFeature {
     @Override
     protected int getCapSize(int i, int j, int capSize, int y) {
         int k = 0;
-        if (y < j && y >= j - 3) {
+        if (y < j && y >= j - 5) {
             k = capSize;
         } else if (y == j) {
             k = capSize;
