@@ -3,6 +3,7 @@ package io.github.cattacocattaco.mycor.block;
 import io.github.cattacocattaco.mycor.Mycor;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;

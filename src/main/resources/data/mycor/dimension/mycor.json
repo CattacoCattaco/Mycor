@@ -1,0 +1,42 @@
+{
+  "type": "mycor:mycor",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "mycor:mycor",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "mycor:glowshroom_fields",
+          "parameters": {
+            "temperature": {
+              "min": -2,
+              "max": -2
+            },
+            "humidity": {
+              "min": -2,
+              "max": -2
+            },
+            "continentalness": {
+              "min": -2,
+              "max": -2
+            },
+            "erosion": {
+              "min": -2,
+              "max": -2
+            },
+            "weirdness": {
+              "min": -2,
+              "max": -2
+            },
+            "depth": {
+              "min": -2,
+              "max": -2
+            },
+            "offset": 0
+          }
+        }
+      ]
+    }
+  }
+}

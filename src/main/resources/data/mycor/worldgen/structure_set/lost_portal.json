@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "mycor:lost_portal",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "separation": 3,
+    "spacing": 18,
+    "salt": 85209872
+  }
+}
