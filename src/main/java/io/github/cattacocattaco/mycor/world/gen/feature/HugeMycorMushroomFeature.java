@@ -39,8 +39,8 @@ public abstract class HugeMycorMushroomFeature extends Feature<HugeMycorMushroom
         this.placeBlock(world, mutablePos, config.stemProvider.get(random, pos));
 
         if((depth < height || currentHeight < config.minStemHeight) && currentHeight < config.maxStemHeight) {
-            if(depth >= height - 5) {
-                if(stepsSinceTurn < 6 && from != Direction.UP) {
+            if(depth >= height - config.endVerticalLength) {
+                if(stepsSinceTurn < config.minHorizontalTurnDistance && from != Direction.UP) {
                     if(world.getBlockState((new BlockPos.Mutable()).set(mutablePos.toImmutable()).move(from)).isAir()) {
                         mutablePos.move(newDirection);
                     }
@@ -56,7 +56,7 @@ public abstract class HugeMycorMushroomFeature extends Feature<HugeMycorMushroom
                 mutablePos.move(newDirection);
                 newCurrentHeight++;
             }
-            else if(depth > 3 && config.branching && branchCount.getValue() < 10 && branchDepth < 3 && (stepsSinceTurn > 6 || (stepsSinceTurn > 3 && from == Direction.UP)) && random.nextFloat() < 0.35f) {
+            else if(depth > config.startVerticalLength && config.branching && branchCount.getValue() < config.maxBranchCount && branchDepth < config.maxBranchDepth && (stepsSinceTurn > config.minHorizontalTurnDistance || (stepsSinceTurn > config.minVerticalTurnDistance && from == Direction.UP)) && random.nextFloat() < config.branchChance) {
                 branchCount.increment();
                 newBranchDepth++;
 
@@ -67,12 +67,12 @@ public abstract class HugeMycorMushroomFeature extends Feature<HugeMycorMushroom
 
                 newStepsSinceTurn = 0;
 
-                generateStem(world, random, pos, config, height + random.nextInt(5), branchPos, endPositions, depth + 1, newCurrentHeight, branchCount, newBranchDepth, branchDirection, newStepsSinceTurn);
+                generateStem(world, random, pos, config, height + random.nextInt(config.maxBranchGrowth), branchPos, endPositions, depth + 1, newCurrentHeight, branchCount, newBranchDepth, branchDirection, newStepsSinceTurn);
 
                 newDirection = getRandomEmptyDirection(world, random, mutablePos, Direction.DOWN);
                 mutablePos.move(newDirection);
             }
-            else if(depth > 3 && (stepsSinceTurn > 6 || (stepsSinceTurn > 3 && from == Direction.UP)) && random.nextFloat() < 0.3f) {
+            else if(depth > config.startVerticalLength && config.turning && (stepsSinceTurn > config.minHorizontalTurnDistance || (stepsSinceTurn > config.minVerticalTurnDistance && from == Direction.UP)) && random.nextFloat() < config.turnChance) {
                 newDirection = getRandomEmptyDirection(world, random, mutablePos, from);
                 mutablePos.move(newDirection);
 

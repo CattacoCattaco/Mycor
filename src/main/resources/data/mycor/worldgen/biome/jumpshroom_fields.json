@@ -16,10 +16,10 @@
     },
     "music_volume": 1.0,
     "sky_color": 7929803,
-    "water_color": 16775552,
-    "water_fog_color": 3351557,
-    "foliage_color": 14679925,
-    "grass_color": 14679925
+    "water_color": 3229829,
+    "water_fog_color": 1385030,
+    "foliage_color": 2643329,
+    "grass_color": 2643329
   },
   "features": [
     [],
@@ -74,8 +74,8 @@
     ],
     [
       "minecraft:glow_lichen",
-      "mycor:huge_glowshroom",
-      "mycor:patch_glowshroom"
+      "mycor:huge_jumpshroom",
+      "mycor:patch_jumpshroom"
     ],
     [
       "minecraft:freeze_top_layer"

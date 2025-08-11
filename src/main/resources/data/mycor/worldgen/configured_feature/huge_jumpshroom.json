@@ -1,0 +1,39 @@
+{
+  "type": "random_selector",
+  "config": {
+    "default": {
+      "feature": "mycor:huge_jumpshroom_medium",
+      "placement": []
+    },
+    "features": [
+      {
+        "feature": {
+          "feature": "mycor:huge_jumpshroom_small",
+          "placement": []
+        },
+        "chance": 0.2
+      },
+      {
+        "feature": {
+          "feature": "mycor:huge_jumpshroom_medium",
+          "placement": []
+        },
+        "chance": 0.35
+      },
+      {
+        "feature": {
+          "feature": "mycor:huge_jumpshroom_large",
+          "placement": []
+        },
+        "chance": 0.3
+      },
+      {
+        "feature": {
+          "feature": "mycor:huge_jumpshroom_xl",
+          "placement": []
+        },
+        "chance": 0.15
+      }
+    ]
+  }
+}

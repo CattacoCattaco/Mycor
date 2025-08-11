@@ -3,19 +3,14 @@ package io.github.cattacocattaco.mycor;
 import io.github.cattacocattaco.mycor.block.ModBlocks;
 import io.github.cattacocattaco.mycor.item.ModItems;
 
-import io.github.cattacocattaco.mycor.world.gen.feature.HugeGlowshroomFeature;
-import io.github.cattacocattaco.mycor.world.gen.feature.HugeMycorMushroomFeatureConfig;
-import io.github.cattacocattaco.mycor.world.gen.feature.ModFeaturesRegisterer;
+import io.github.cattacocattaco.mycor.world.gen.feature.ModFeatures;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
 
-import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -41,7 +36,7 @@ public class Mycor implements ModInitializer {
 
 		LOGGER.info("Hello Fabric world!");
 
-		ModFeaturesRegisterer.initialize();
+		ModFeatures.initialize();
 
 		ModItems.initialize();
 		ModBlocks.initialize();
@@ -60,6 +55,9 @@ public class Mycor implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(CUSTOM_ITEM_GROUP_KEY).register(itemGroup -> {
 			itemGroup.add(ModItems.GLOWSHROOM_SPORES);
 			itemGroup.add(ModBlocks.GLOWSHROOM_BLOCK.asItem());
+			itemGroup.add(ModBlocks.GLOWSHROOM.asItem());
+			itemGroup.add(ModBlocks.JUMPSHROOM_BLOCK.asItem());
+			itemGroup.add(ModBlocks.JUMPSHROOM.asItem());
 			itemGroup.add(ModItems.MYCOR_KEY);
 		});
 

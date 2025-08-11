@@ -1,10 +1,10 @@
 {
-  "type": "mycor:huge_glowshroom",
+  "type": "mycor:huge_jumpshroom",
   "config": {
     "cap_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "mycor:glowshroom_block",
+        "Name": "mycor:jumpshroom_block",
         "Properties": {
           "down": "false",
           "east": "true",
@@ -16,19 +16,10 @@
       }
     },
     "foliage_radius": 3,
-    "min_stem_height": 12,
-    "max_stem_height": 28,
-    "turning": true,
-    "turn_chance": 0.3,
-    "start_vertical_length": 3,
-    "end_vertical_length": 6,
-    "min_horizontal_turn_distance": 6,
-    "min_vertical_turn_distance": 3,
-    "branching": true,
-    "branch_chance": 0.35,
-    "max_branch_count": 15,
-    "max_branch_depth": 3,
-    "max_branch_growth": 5,
+    "min_stem_height": 14,
+    "max_stem_height": 23,
+    "turning": false,
+    "branching": false,
     "stem_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {

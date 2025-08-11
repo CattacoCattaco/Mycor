@@ -1,6 +1,7 @@
 package io.github.cattacocattaco.mycor.block;
 
 import io.github.cattacocattaco.mycor.Mycor;
+import io.github.cattacocattaco.mycor.world.gen.feature.ModFeatures;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.block.piston.PistonBehavior;
@@ -16,7 +17,9 @@ import net.minecraft.util.Identifier;
 import java.util.function.Function;
 
 public class ModBlocks {
-    public static void initialize() {}
+    public static void initialize() {
+
+    }
 
     private static Block register(String name, Function<AbstractBlock.Settings, Block> blockFactory, AbstractBlock.Settings settings, boolean shouldRegisterItem) {
         // Create a registry key for the block
@@ -49,7 +52,28 @@ public class ModBlocks {
     public static final Block GLOWSHROOM_BLOCK = register(
             "glowshroom_block",
             GlowshroomBlock::new,
-            AbstractBlock.Settings.create().mapColor(MapColor.PALE_YELLOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).sounds(BlockSoundGroup.WOOD).luminance(GlowshroomBlock::getLuminance).burnable(),
+            AbstractBlock.Settings.create().mapColor(MapColor.YELLOW).instrument(NoteBlockInstrument.BASS).strength(0.2F).sounds(BlockSoundGroup.WOOD).luminance(GlowshroomBlock::getLuminance).burnable(),
+            true
+    );
+
+    public static final Block GLOWSHROOM = register(
+            "glowshroom",
+            (settings) -> new MushroomPlantBlock(ModFeatures.HUGE_GLOWSHROOM_KEY, settings),
+            AbstractBlock.Settings.create().mapColor(MapColor.YELLOW).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).postProcess(Blocks::always).luminance((state) -> 6).pistonBehavior(PistonBehavior.DESTROY),
+            true
+    );
+
+    public static final Block JUMPSHROOM_BLOCK = register(
+            "jumpshroom_block",
+            JumpshroomBlock::new,
+            AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).instrument(NoteBlockInstrument.BASS).strength(0.2F).sounds(BlockSoundGroup.WOOD).jumpVelocityMultiplier(1.2f).burnable(),
+            true
+    );
+
+    public static final Block JUMPSHROOM = register(
+            "jumpshroom",
+            (settings) -> new MushroomPlantBlock(ModFeatures.HUGE_JUMPSHROOM_KEY, settings),
+            AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).postProcess(Blocks::always).pistonBehavior(PistonBehavior.DESTROY),
             true
     );
 }

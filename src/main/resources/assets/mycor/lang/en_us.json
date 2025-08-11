@@ -2,6 +2,12 @@
   "item.mycor.glowshroom_spores": "Glowshroom Spores",
   "item.mycor.glowshroom_block": "Glowshroom Block",
   "block.mycor.glowshroom_block": "Glowshroom Block",
+  "item.mycor.glowshroom": "Glowshroom",
+  "block.mycor.glowshroom": "Glowshroom",
+  "item.mycor.jumpshroom_block": "Jumpshroom Block",
+  "block.mycor.jumpshroom_block": "Jumpshroom Block",
+  "item.mycor.jumpshroom": "Jumpshroom",
+  "block.mycor.jumpshroom": "Jumpshroom",
   "item.mycor.mycor_key": "Mycor Key",
   "itemGroup.mycor": "Mycor"
 }

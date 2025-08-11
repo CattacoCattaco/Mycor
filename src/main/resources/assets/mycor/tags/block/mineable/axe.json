@@ -1,4 +1,7 @@
 {
   "replace": false,
-  "values": ["mycor:glowshroom_block"]
+  "values": [
+    "mycor:glowshroom_block",
+    "mycor:jumpshroom_block"
+  ]
 }
