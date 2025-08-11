@@ -5,7 +5,7 @@
     "minecraft:canyon"
   ],
   "downfall": 1.0,
-  "temperature": 1.0,
+  "temperature": 0.5,
   "effects": {
     "fog_color": 12648409,
     "mood_sound": {

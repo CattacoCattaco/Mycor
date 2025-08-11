@@ -7,6 +7,66 @@
       "type": "minecraft:multi_noise",
       "biomes": [
         {
+          "biome": "mycor:deep_lost_ocean",
+          "parameters": {
+            "temperature": {
+              "min": -2,
+              "max": 2
+            },
+            "humidity": {
+              "min": -2,
+              "max": 2
+            },
+            "continentalness": {
+              "min": -1.2,
+              "max": -0.455
+            },
+            "erosion": {
+              "min": -2,
+              "max": 2
+            },
+            "weirdness": {
+              "min": -2,
+              "max": 2
+            },
+            "depth": {
+              "min": -2,
+              "max": 2
+            },
+            "offset": 0
+          }
+        },
+        {
+          "biome": "mycor:lost_ocean",
+          "parameters": {
+            "temperature": {
+              "min": -2,
+              "max": 2
+            },
+            "humidity": {
+              "min": -2,
+              "max": 2
+            },
+            "continentalness": {
+              "min": -0.455,
+              "max": -0.19
+            },
+            "erosion": {
+              "min": -2,
+              "max": 2
+            },
+            "weirdness": {
+              "min": -2,
+              "max": 2
+            },
+            "depth": {
+              "min": -2,
+              "max": 2
+            },
+            "offset": 0
+          }
+        },
+        {
           "biome": "mycor:glowshroom_fields",
           "parameters": {
             "temperature": {
@@ -18,7 +78,7 @@
               "max": 2
             },
             "continentalness": {
-              "min": -2,
+              "min": -0.19,
               "max": 2
             },
             "erosion": {
@@ -48,7 +108,7 @@
               "max": 2
             },
             "continentalness": {
-              "min": -2,
+              "min": -0.19,
               "max": 2
             },
             "erosion": {
