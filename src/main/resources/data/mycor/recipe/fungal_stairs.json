@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "building",
+    "group": "wooden_stairs",
+    "pattern": [
+        "P  ",
+        "PP ",
+        "PPP"
+    ],
+    "key": {
+        "P": "mycor:fungal_planks"
+    },
+    "result": {
+        "id": "mycor:fungal_stairs",
+        "count": 6
+    }
+}

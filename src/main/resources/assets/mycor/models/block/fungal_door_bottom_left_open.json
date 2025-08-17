@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left_open",
+  "textures": {
+    "bottom": "mycor:block/fungal_door_bottom",
+    "top": "mycor:block/fungal_door_top"
+  }
+}

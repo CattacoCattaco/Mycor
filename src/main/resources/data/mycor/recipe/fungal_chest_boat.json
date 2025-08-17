@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "group": "chest_boat",
+    "ingredients": [
+        "mycor:fungal_boat",
+        "minecraft:chest"
+    ],
+    "result": {
+        "id": "mycor:fungal_chest_boat",
+        "count": 1
+    }
+}

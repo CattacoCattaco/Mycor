@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "redstone",
+    "group": "wooden_door",
+    "pattern": [
+        "PP",
+        "PP",
+        "PP"
+    ],
+    "key": {
+        "P": "mycor:fungal_planks"
+    },
+    "result": {
+        "id": "mycor:fungal_door",
+        "count": 15
+    }
+}

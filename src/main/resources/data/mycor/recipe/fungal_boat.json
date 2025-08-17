@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "boat",
+    "pattern": [
+        "P P",
+        "PPP"
+    ],
+    "key": {
+        "P": "mycor:fungal_planks"
+    },
+    "result": {
+        "id": "mycor:fungal_boat",
+        "count": 1
+    }
+}

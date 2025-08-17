@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "mycor:block/fungal_pressure_plate"
+    },
+    "powered=true": {
+      "model": "mycor:block/fungal_pressure_plate_down"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "wooden_fence",
+    "pattern": [
+        "PSP",
+        "PSP"
+    ],
+    "key": {
+        "P": "mycor:fungal_planks",
+        "S": "minecraft:stick"
+    },
+    "result": {
+        "id": "mycor:fungal_fence",
+        "count": 4
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "redstone",
+    "group": "wooden_trapdoor",
+    "pattern": [
+        "PPP",
+        "PPP"
+    ],
+    "key": {
+        "P": "mycor:fungal_planks"
+    },
+    "result": {
+        "id": "mycor:fungal_trapdoor",
+        "count": 30
+    }
+}

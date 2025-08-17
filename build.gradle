@@ -17,6 +17,14 @@ repositories {
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
 	maven {url = "https://maven.kyrptonaught.dev"}
+	maven {
+		name = 'TerraformersMC'
+		url = 'https://maven.terraformersmc.com/'
+	}
+}
+
+fabricApi {
+	configureDataGeneration()
 }
 
 loom {
@@ -29,6 +37,11 @@ loom {
 		}
 	}
 
+	runs {
+		datagen {
+			inherit client
+		}
+	}
 }
 
 dependencies {
@@ -42,6 +55,8 @@ dependencies {
 
 	modImplementation 'net.kyrptonaught:customportalapi:0.0.1-beta68-1.21.8'
 	include 'net.kyrptonaught:customportalapi:0.0.1-beta68-1.21.8'
+
+	modImplementation "com.terraformersmc.terraform-api:terraform-wood-api-v1:15.0.0"
 }
 
 processResources {

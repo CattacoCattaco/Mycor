@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "mycor:block/fungal_slab"
+    },
+    "type=double": {
+      "model": "mycor:block/fungal_planks"
+    },
+    "type=top": {
+      "model": "mycor:block/fungal_slab_top"
+    }
+  }
+}

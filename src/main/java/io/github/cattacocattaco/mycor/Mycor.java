@@ -58,10 +58,20 @@ public class Mycor implements ModInitializer {
 			itemGroup.add(ModBlocks.GLOWSHROOM.asItem());
 			itemGroup.add(ModBlocks.JUMPSHROOM_BLOCK.asItem());
 			itemGroup.add(ModBlocks.JUMPSHROOM.asItem());
+			itemGroup.add(ModBlocks.FUNGAL_PLANKS.asItem());
+			itemGroup.add(ModBlocks.FUNGAL_STAIRS.asItem());
+			itemGroup.add(ModBlocks.FUNGAL_SLAB.asItem());
+			itemGroup.add(ModBlocks.FUNGAL_FENCE.asItem());
+			itemGroup.add(ModBlocks.FUNGAL_FENCE_GATE.asItem());
+			itemGroup.add(ModBlocks.FUNGAL_DOOR.asItem());
+			itemGroup.add(ModBlocks.FUNGAL_TRAPDOOR.asItem());
+			itemGroup.add(ModBlocks.FUNGAL_PRESSURE_PLATE.asItem());
+			itemGroup.add(ModBlocks.FUNGAL_BUTTON.asItem());
+			itemGroup.add(ModItems.FUNGAL_SIGN);
+			itemGroup.add(ModItems.FUNGAL_HANGING_SIGN);
+			itemGroup.add(ModItems.FUNGAL_BOAT);
+			itemGroup.add(ModItems.FUNGAL_CHEST_BOAT);
 			itemGroup.add(ModItems.MYCOR_KEY);
 		});
-
-		// Add the glowshroom spores to the composting registry with a 30% chance of increasing the composter's level.
-		CompostingChanceRegistry.INSTANCE.add(ModItems.GLOWSHROOM_SPORES, 0.3f);
 	}
 }

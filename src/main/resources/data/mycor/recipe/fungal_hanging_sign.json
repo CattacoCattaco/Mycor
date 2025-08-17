@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "misc",
+    "group": "hanging_sign",
+    "pattern": [
+        "C C",
+        "PPP",
+        "PPP"
+    ],
+    "key": {
+        "P": "mycor:fungal_planks",
+        "C": "minecraft:chain"
+    },
+    "result": {
+        "id": "mycor:fungal_hanging_sign",
+        "count": 6
+    }
+}
