@@ -58,6 +58,9 @@ public class Mycor implements ModInitializer {
 			itemGroup.add(ModBlocks.GLOWSHROOM.asItem());
 			itemGroup.add(ModBlocks.JUMPSHROOM_BLOCK.asItem());
 			itemGroup.add(ModBlocks.JUMPSHROOM.asItem());
+			itemGroup.add(ModBlocks.SWIFTSHROOM_BLOCK.asItem());
+			itemGroup.add(ModBlocks.SWIFTSHROOM.asItem());;
+			itemGroup.add(ModBlocks.FROSTSHROOM_BLOCK.asItem());
 			itemGroup.add(ModBlocks.FUNGAL_PLANKS.asItem());
 			itemGroup.add(ModBlocks.FUNGAL_STAIRS.asItem());
 			itemGroup.add(ModBlocks.FUNGAL_SLAB.asItem());
@@ -67,11 +70,13 @@ public class Mycor implements ModInitializer {
 			itemGroup.add(ModBlocks.FUNGAL_TRAPDOOR.asItem());
 			itemGroup.add(ModBlocks.FUNGAL_PRESSURE_PLATE.asItem());
 			itemGroup.add(ModBlocks.FUNGAL_BUTTON.asItem());
+			itemGroup.add(ModBlocks.FAST_BUTTON.asItem());
 			itemGroup.add(ModItems.FUNGAL_SIGN);
 			itemGroup.add(ModItems.FUNGAL_HANGING_SIGN);
 			itemGroup.add(ModItems.FUNGAL_BOAT);
 			itemGroup.add(ModItems.FUNGAL_CHEST_BOAT);
 			itemGroup.add(ModItems.MYCOR_KEY);
+			itemGroup.add(ModBlocks.RACEWAY.asItem());
 		});
 	}
 }

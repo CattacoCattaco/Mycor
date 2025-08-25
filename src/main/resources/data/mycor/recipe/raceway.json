@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "SSS",
+        "SIS",
+        "SSS"
+    ],
+    "key": {
+        "S": "mycor:swiftshroom_block",
+        "I": "minecraft:blue_ice"
+    },
+    "result": {
+        "id": "mycor:raceway",
+        "count": 9
+    }
+}

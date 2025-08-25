@@ -84,14 +84,42 @@ public class ModBlocks {
     public static final Block JUMPSHROOM_BLOCK = register(
             "jumpshroom_block",
             JumpshroomBlock::new,
-            AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).instrument(NoteBlockInstrument.BASS).strength(0.2F).sounds(BlockSoundGroup.WOOD).jumpVelocityMultiplier(1.2f).burnable(),
+            AbstractBlock.Settings.create().mapColor(MapColor.LAPIS_BLUE).instrument(NoteBlockInstrument.BASS).strength(0.2F).sounds(BlockSoundGroup.WOOD).jumpVelocityMultiplier(1.2f).burnable(),
             true
     );
 
     public static final Block JUMPSHROOM = register(
             "jumpshroom",
             (settings) -> new MushroomPlantBlock(ModFeatures.HUGE_JUMPSHROOM_KEY, settings),
-            AbstractBlock.Settings.create().mapColor(MapColor.LIGHT_BLUE).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).postProcess(Blocks::always).pistonBehavior(PistonBehavior.DESTROY),
+            AbstractBlock.Settings.create().mapColor(MapColor.LAPIS_BLUE).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).postProcess(Blocks::always).pistonBehavior(PistonBehavior.DESTROY),
+            true
+    );
+
+    public static final Block SWIFTSHROOM_BLOCK = register(
+            "swiftshroom_block",
+            MushroomBlock::new,
+            AbstractBlock.Settings.create().mapColor(MapColor.CYAN).instrument(NoteBlockInstrument.BASS).strength(0.2F).sounds(BlockSoundGroup.WOOD).velocityMultiplier(1.5F).burnable(),
+            true
+    );
+
+    public static final Block SWIFTSHROOM = register(
+            "swiftshroom",
+            (settings) -> new MushroomPlantBlock(ModFeatures.HUGE_SWIFTHROOM_KEY, settings),
+            AbstractBlock.Settings.create().mapColor(MapColor.LAPIS_BLUE).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).postProcess(Blocks::always).pistonBehavior(PistonBehavior.DESTROY),
+            true
+    );
+
+    public static final Block RACEWAY = register(
+            "raceway",
+            Block::new,
+            AbstractBlock.Settings.create().mapColor(MapColor.CYAN).instrument(NoteBlockInstrument.DIDGERIDOO).strength(0.2F).sounds(BlockSoundGroup.GLASS).velocityMultiplier(2.0F).slipperiness(0.98F).burnable(),
+            true
+    );
+
+    public static final Block FROSTSHROOM_BLOCK = register(
+            "frostshroom_block",
+            FrostshroomBlock::new,
+            AbstractBlock.Settings.create().mapColor(MapColor.TERRACOTTA_BLUE).instrument(NoteBlockInstrument.BASS).strength(0.2F).sounds(BlockSoundGroup.WOOD).slipperiness(0.5F).burnable(),
             true
     );
 
@@ -147,6 +175,13 @@ public class ModBlocks {
     public static final Block FUNGAL_BUTTON = register(
             "fungal_button",
             (settings) -> new ButtonBlock(ModBlockSetType.FUNGAL, 30, settings),
+            AbstractBlock.Settings.create().noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY),
+            true
+    );
+
+    public static final Block FAST_BUTTON = register(
+            "fast_button",
+            (settings) -> new ButtonBlock(ModBlockSetType.FUNGAL, 1, settings),
             AbstractBlock.Settings.create().noCollision().strength(0.5F).pistonBehavior(PistonBehavior.DESTROY),
             true
     );

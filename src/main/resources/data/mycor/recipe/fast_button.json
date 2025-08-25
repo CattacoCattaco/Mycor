@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "redstone",
+    "ingredients": [
+        "mycor:fungal_button",
+        "mycor:swiftshroom"
+    ],
+    "result": {
+        "id": "mycor:fast_button",
+        "count": 1
+    }
+}

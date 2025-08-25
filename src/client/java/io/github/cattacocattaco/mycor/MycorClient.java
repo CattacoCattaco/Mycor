@@ -14,6 +14,7 @@ public class MycorClient implements ClientModInitializer {
 		//Partially transparent blocks need special rendering stuff
 		BlockRenderLayerMap.putBlock(ModBlocks.GLOWSHROOM, BlockRenderLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(ModBlocks.JUMPSHROOM, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(ModBlocks.SWIFTSHROOM, BlockRenderLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(ModBlocks.FUNGAL_DOOR, BlockRenderLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(ModBlocks.FUNGAL_TRAPDOOR, BlockRenderLayer.CUTOUT);
 

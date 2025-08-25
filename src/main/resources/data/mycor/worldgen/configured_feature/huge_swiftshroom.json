@@ -1,0 +1,38 @@
+{
+  "type": "mycor:huge_swiftshroom",
+  "config": {
+    "cap_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "mycor:swiftshroom_block",
+        "Properties": {
+          "down": "false",
+          "east": "true",
+          "north": "true",
+          "south": "true",
+          "up": "true",
+          "west": "true"
+        }
+      }
+    },
+    "foliage_radius": 4,
+    "min_stem_height": 8,
+    "max_stem_height": 20,
+    "turning": false,
+    "branching": false,
+    "stem_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:mushroom_stem",
+        "Properties": {
+          "down": "false",
+          "east": "true",
+          "north": "true",
+          "south": "true",
+          "up": "false",
+          "west": "true"
+        }
+      }
+    }
+  }
+}

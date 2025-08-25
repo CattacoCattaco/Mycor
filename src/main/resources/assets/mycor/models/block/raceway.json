@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "mycor:block/raceway_top",
+    "up": "mycor:block/raceway_top",
+    "particle": "mycor:block/raceway_top",
+    "east": "mycor:block/swiftshroom_block",
+    "north": "mycor:block/swiftshroom_block",
+    "south": "mycor:block/swiftshroom_block",
+    "west": "mycor:block/swiftshroom_block"
+  }
+}
