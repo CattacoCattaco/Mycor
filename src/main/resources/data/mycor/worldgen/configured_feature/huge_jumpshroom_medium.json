@@ -18,8 +18,8 @@
     "foliage_radius": 2,
     "stem_height": {
       "type": "uniform",
-      "min": 5,
-      "max": 9
+      "min_inclusive": 5,
+      "max_inclusive": 9
     },
     "turning": false,
     "branching": false,

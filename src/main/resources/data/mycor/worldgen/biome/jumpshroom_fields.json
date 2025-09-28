@@ -16,10 +16,10 @@
     },
     "music_volume": 1.0,
     "sky_color": 7929803,
-    "water_color": 3229829,
-    "water_fog_color": 1385030,
-    "foliage_color": 2643329,
-    "grass_color": 2643329
+    "water_color": 65326,
+    "water_fog_color": 65326,
+    "foliage_color": 65326,
+    "grass_color": 65326
   },
   "features": [
     [],
