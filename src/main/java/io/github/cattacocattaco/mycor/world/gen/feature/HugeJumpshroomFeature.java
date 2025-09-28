@@ -17,7 +17,7 @@ public class HugeJumpshroomFeature extends HugeMycorMushroomFeature {
         int y = offsetY;
 
         int edgePos = config.foliageRadius;
-        int exposureBound = config.foliageRadius - 2;
+        int exposureBound = config.foliageRadius - 1;
 
         for(int x = -edgePos; x <= edgePos; ++x) {
             for(int z = -edgePos; z <= edgePos; ++z) {
@@ -25,20 +25,21 @@ public class HugeJumpshroomFeature extends HugeMycorMushroomFeature {
                 boolean onEastEdge = x == edgePos;
                 boolean onNorthEdge = z == -edgePos;
                 boolean onSouthEdge = z == edgePos;
-                boolean onXEdge = onWestEdge || onEastEdge;
-                boolean onYEdge = onNorthEdge || onSouthEdge;
-                boolean corner = onXEdge && onYEdge;
+                boolean onWestEastEdge = onWestEdge || onEastEdge;
+                boolean onNorthSouthEdge = onNorthEdge || onSouthEdge;
+                boolean corner = onWestEastEdge && onNorthSouthEdge;
                 if (!corner) {
                     // Sets mutable pos to start + (x, y, z)
                     mutable.set(start, x, y, z);
 
                     BlockState blockState = config.capProvider.get(random, start);
                     if (blockState.contains(MushroomBlock.WEST) && blockState.contains(MushroomBlock.EAST) && blockState.contains(MushroomBlock.NORTH) && blockState.contains(MushroomBlock.SOUTH) && blockState.contains(MushroomBlock.UP)) {
-                        boolean westExposed = x < -exposureBound;
-                        boolean eastExposed = x > exposureBound;
-                        boolean northExposed = z < -exposureBound;
-                        boolean southExposed = z > exposureBound;
-                        blockState = (BlockState)((BlockState)((BlockState)((BlockState)((BlockState)blockState.with(MushroomBlock.UP, y >= offsetY - 1)).with(MushroomBlock.WEST, westExposed)).with(MushroomBlock.EAST, eastExposed)).with(MushroomBlock.NORTH, northExposed)).with(MushroomBlock.SOUTH, southExposed);
+                        boolean topExposed = true;
+                        boolean westExposed = onWestEdge || (onNorthSouthEdge && x == -exposureBound);
+                        boolean eastExposed = onEastEdge || (onNorthSouthEdge && x == exposureBound);
+                        boolean northExposed = onNorthEdge || (onWestEastEdge && z == -exposureBound);
+                        boolean southExposed = onSouthEdge || (onWestEastEdge && z == exposureBound);
+                        blockState = (BlockState)((BlockState)((BlockState)((BlockState)((BlockState)blockState.with(MushroomBlock.UP, topExposed)).with(MushroomBlock.WEST, westExposed)).with(MushroomBlock.EAST, eastExposed)).with(MushroomBlock.NORTH, northExposed)).with(MushroomBlock.SOUTH, southExposed);
                     }
 
                     this.placeBlock(world, mutable, blockState);

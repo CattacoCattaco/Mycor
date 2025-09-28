@@ -17,6 +17,8 @@ public class ModFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> HUGE_JUMPSHROOM_KEY;
     public static final Feature<HugeMycorMushroomFeatureConfig> HUGE_SWIFTHROOM;
     public static final RegistryKey<ConfiguredFeature<?, ?>> HUGE_SWIFTHROOM_KEY;
+    public static final Feature<HugeMycorMushroomFeatureConfig> HUGE_FROSTHROOM;
+    public static final RegistryKey<ConfiguredFeature<?, ?>> HUGE_FROSTHROOM_KEY;
 
     public static void initialize() {}
 
@@ -35,5 +37,7 @@ public class ModFeatures {
         HUGE_JUMPSHROOM_KEY = keyOf("huge_jumpshroom");
         HUGE_SWIFTHROOM = register("huge_swiftshroom", new HugeSwiftshroomFeature(HugeMycorMushroomFeatureConfig.CODEC));
         HUGE_SWIFTHROOM_KEY = keyOf("huge_swiftshroom");
+        HUGE_FROSTHROOM = register("huge_frostshroom", new HugeFrostshroomFeature(HugeMycorMushroomFeatureConfig.CODEC));
+        HUGE_FROSTHROOM_KEY = keyOf("huge_frostshroom");
     }
 }

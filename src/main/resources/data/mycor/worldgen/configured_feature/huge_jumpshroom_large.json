@@ -16,8 +16,11 @@
       }
     },
     "foliage_radius": 3,
-    "min_stem_height": 14,
-    "max_stem_height": 23,
+    "stem_height": {
+      "type": "uniform",
+      "min": 14,
+      "max": 23
+    },
     "turning": false,
     "branching": false,
     "stem_provider": {

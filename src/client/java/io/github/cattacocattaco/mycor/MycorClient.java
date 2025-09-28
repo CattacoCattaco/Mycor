@@ -15,6 +15,7 @@ public class MycorClient implements ClientModInitializer {
 		BlockRenderLayerMap.putBlock(ModBlocks.GLOWSHROOM, BlockRenderLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(ModBlocks.JUMPSHROOM, BlockRenderLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(ModBlocks.SWIFTSHROOM, BlockRenderLayer.CUTOUT);
+		BlockRenderLayerMap.putBlock(ModBlocks.FROSTSHROOM, BlockRenderLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(ModBlocks.FUNGAL_DOOR, BlockRenderLayer.CUTOUT);
 		BlockRenderLayerMap.putBlock(ModBlocks.FUNGAL_TRAPDOOR, BlockRenderLayer.CUTOUT);
 

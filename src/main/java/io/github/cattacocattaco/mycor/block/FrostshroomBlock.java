@@ -11,8 +11,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 
 public class FrostshroomBlock extends MushroomBlock {
-    public static final int FREEZE_RADIUS = 3;
-    public static final float FREEZE_CHANCE = 0.2F;
+    public static final int FREEZE_RADIUS = 4;
+    public static final float FREEZE_CHANCE = 0.05F;
+    public static final int MAX_FROZEN_BLOCKS_PER_TICK = 15;
 
     public FrostshroomBlock(Settings settings) {
         super(settings);
@@ -30,6 +31,7 @@ public class FrostshroomBlock extends MushroomBlock {
     }
 
     protected void tryFreezeRange(ServerWorld world, BlockPos pos, Random random) {
+        int frozenBlocks = 0;
         for(int x = pos.getX() - FREEZE_RADIUS; x <= pos.getX() + FREEZE_RADIUS; ++x) {
             for(int y = pos.getY() - FREEZE_RADIUS; y <= pos.getY() + FREEZE_RADIUS; ++y) {
                 for(int z = pos.getZ() - FREEZE_RADIUS; z <= pos.getZ() + FREEZE_RADIUS; ++z) {
@@ -37,7 +39,10 @@ public class FrostshroomBlock extends MushroomBlock {
 
                     if(x != pos.getX() || y != pos.getY() || z != pos.getZ()) {
                         if(tryFreezeBlock(world, currentPos, random)) {
-                            return;
+                            frozenBlocks += 1;
+                            if(frozenBlocks >= MAX_FROZEN_BLOCKS_PER_TICK) {
+                                return;
+                            }
                         }
                     }
                 }

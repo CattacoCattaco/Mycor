@@ -1,10 +1,10 @@
 {
-  "type": "mycor:huge_glowshroom",
+  "type": "mycor:huge_frostshroom",
   "config": {
     "cap_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "mycor:glowshroom_block",
+        "Name": "mycor:frostshroom_block",
         "Properties": {
           "down": "false",
           "east": "true",
@@ -15,23 +15,15 @@
         }
       }
     },
-    "foliage_radius": 3,
+    "foliage_radius": 5,
     "stem_height": {
       "type": "uniform",
-      "min": 12,
-      "max": 28
+      "min": 15,
+      "max": 30
     },
-    "turning": true,
-    "turn_chance": 0.3,
-    "start_vertical_length": 3,
-    "end_vertical_length": 6,
-    "min_horizontal_turn_distance": 6,
-    "min_vertical_turn_distance": 3,
-    "branching": true,
-    "branch_chance": 0.35,
-    "max_branch_count": 15,
-    "max_branch_depth": 3,
-    "max_branch_growth": 5,
+    "stem_width": 2,
+    "turning": false,
+    "branching": false,
     "stem_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {

@@ -61,6 +61,7 @@ public class Mycor implements ModInitializer {
 			itemGroup.add(ModBlocks.SWIFTSHROOM_BLOCK.asItem());
 			itemGroup.add(ModBlocks.SWIFTSHROOM.asItem());;
 			itemGroup.add(ModBlocks.FROSTSHROOM_BLOCK.asItem());
+			itemGroup.add(ModBlocks.FROSTSHROOM.asItem());
 			itemGroup.add(ModBlocks.FUNGAL_PLANKS.asItem());
 			itemGroup.add(ModBlocks.FUNGAL_STAIRS.asItem());
 			itemGroup.add(ModBlocks.FUNGAL_SLAB.asItem());

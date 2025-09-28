@@ -14,34 +14,44 @@ public class HugeFrostshroomFeature extends HugeMycorMushroomFeature {
 
     @Override
     protected void generateCap(WorldAccess world, Random random, BlockPos start, int offsetY, BlockPos.Mutable mutable, HugeMycorMushroomFeatureConfig config) {
-        int y = offsetY;
+        for(int layer = 0; layer <= config.foliageRadius; ++layer) {
+            int layerStartY = offsetY + 3 * layer;
+            for (int y = layerStartY; y < layerStartY + 3; ++y) {
+                int edgePos = config.foliageRadius - layer;
+                int exposureBound = edgePos - 1;
 
-        int edgePos = config.foliageRadius;
-        int exposureBound = config.foliageRadius - 2;
+                for (int x = -edgePos; x <= edgePos + 1; ++x) {
+                    for (int z = -edgePos; z <= edgePos + 1; ++z) {
+                        boolean onWestEdge = x == -edgePos;
+                        boolean onEastEdge = x == edgePos + 1;
+                        boolean onNorthEdge = z == -edgePos;
+                        boolean onSouthEdge = z == edgePos + 1;
+                        boolean onWestEastEdge = onWestEdge || onEastEdge;
+                        boolean onNorthSouthEdge = onNorthEdge || onSouthEdge;
+                        boolean corner = onWestEastEdge && onNorthSouthEdge;
+                        if (layer == config.foliageRadius || !corner) {
+                            // Sets mutable pos to start + (x, y, z)
+                            mutable.set(start, x, y, z);
 
-        for(int x = -edgePos; x <= edgePos; ++x) {
-            for(int z = -edgePos; z <= edgePos; ++z) {
-                boolean onWestEdge = x == -edgePos;
-                boolean onEastEdge = x == edgePos;
-                boolean onNorthEdge = z == -edgePos;
-                boolean onSouthEdge = z == edgePos;
-                boolean onXEdge = onWestEdge || onEastEdge;
-                boolean onYEdge = onNorthEdge || onSouthEdge;
-                boolean corner = onXEdge && onYEdge;
-                if (!corner) {
-                    // Sets mutable pos to start + (x, y, z)
-                    mutable.set(start, x, y, z);
+                            BlockState blockState = config.capProvider.get(random, start);
+                            if (blockState.contains(MushroomBlock.WEST) && blockState.contains(MushroomBlock.EAST) && blockState.contains(MushroomBlock.NORTH) && blockState.contains(MushroomBlock.SOUTH) && blockState.contains(MushroomBlock.UP)) {
+                                boolean onWestExposureLine = x == -exposureBound;
+                                boolean onEastExposureLine = x == exposureBound + 1;
+                                boolean onNorthExposureLine = z == -exposureBound;
+                                boolean onSouthExposureLine = z == exposureBound + 1;
+                                boolean onWestEastExposureLine = onWestExposureLine || onEastExposureLine;
+                                boolean onNorthSouthExposureLine = onNorthExposureLine || onSouthExposureLine;
+                                boolean topExposed = y == layerStartY + 2 && (onNorthSouthEdge || onWestEastEdge || (onWestEastExposureLine && onNorthSouthExposureLine));
+                                boolean westExposed = onWestEdge || (onNorthSouthEdge && onWestExposureLine);
+                                boolean eastExposed = onEastEdge || (onNorthSouthEdge && onEastExposureLine);
+                                boolean northExposed = onNorthEdge || (onWestEastEdge && onNorthExposureLine);
+                                boolean southExposed = onSouthEdge || (onWestEastEdge && onSouthExposureLine);
+                                blockState = (BlockState)((BlockState)((BlockState)((BlockState)((BlockState)blockState.with(MushroomBlock.UP, topExposed)).with(MushroomBlock.WEST, westExposed)).with(MushroomBlock.EAST, eastExposed)).with(MushroomBlock.NORTH, northExposed)).with(MushroomBlock.SOUTH, southExposed);
+                            }
 
-                    BlockState blockState = config.capProvider.get(random, start);
-                    if (blockState.contains(MushroomBlock.WEST) && blockState.contains(MushroomBlock.EAST) && blockState.contains(MushroomBlock.NORTH) && blockState.contains(MushroomBlock.SOUTH) && blockState.contains(MushroomBlock.UP)) {
-                        boolean westExposed = x < -exposureBound;
-                        boolean eastExposed = x > exposureBound;
-                        boolean northExposed = z < -exposureBound;
-                        boolean southExposed = z > exposureBound;
-                        blockState = (BlockState)((BlockState)((BlockState)((BlockState)((BlockState)blockState.with(MushroomBlock.UP, y >= offsetY - 1)).with(MushroomBlock.WEST, westExposed)).with(MushroomBlock.EAST, eastExposed)).with(MushroomBlock.NORTH, northExposed)).with(MushroomBlock.SOUTH, southExposed);
+                            this.placeBlock(world, mutable, blockState);
+                        }
                     }
-
-                    this.placeBlock(world, mutable, blockState);
                 }
             }
         }

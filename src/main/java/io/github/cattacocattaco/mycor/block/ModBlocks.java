@@ -123,6 +123,13 @@ public class ModBlocks {
             true
     );
 
+    public static final Block FROSTSHROOM = register(
+            "frostshroom",
+            (settings) -> new MushroomPlantBlock(ModFeatures.HUGE_FROSTHROOM_KEY, settings),
+            AbstractBlock.Settings.create().mapColor(MapColor.LAPIS_BLUE).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).postProcess(Blocks::always).pistonBehavior(PistonBehavior.DESTROY),
+            true
+    );
+
     public static final Block FUNGAL_PLANKS = register(
             "fungal_planks",
             Block::new,

@@ -2,6 +2,9 @@ package io.github.cattacocattaco.mycor.world.gen.feature;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
+import net.minecraft.util.math.intprovider.IntProvider;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 
@@ -12,8 +15,8 @@ public class HugeMycorMushroomFeatureConfig implements FeatureConfig {
                             BlockStateProvider.TYPE_CODEC.fieldOf("cap_provider").forGetter((hugeMushroomFeatureConfig) -> hugeMushroomFeatureConfig.capProvider),
                             BlockStateProvider.TYPE_CODEC.fieldOf("stem_provider").forGetter((hugeMushroomFeatureConfig) -> hugeMushroomFeatureConfig.stemProvider),
                             Codec.INT.fieldOf("foliage_radius").orElse(2).forGetter((hugeMushroomFeatureConfig) -> hugeMushroomFeatureConfig.foliageRadius),
-                            Codec.INT.fieldOf("min_stem_height").orElse(3).forGetter((hugeMushroomFeatureConfig) -> hugeMushroomFeatureConfig.minStemHeight),
-                            Codec.INT.fieldOf("max_stem_height").orElse(7).forGetter((hugeMushroomFeatureConfig) -> hugeMushroomFeatureConfig.maxStemHeight),
+                            IntProvider.createValidatingCodec(1, 500).fieldOf("stem_height").orElse(UniformIntProvider.create(7, 15)).forGetter((hugeMushroomFeatureConfig) -> hugeMushroomFeatureConfig.stemHeight),
+                            Codec.INT.fieldOf("stem_width").orElse(1).forGetter((hugeMushroomFeatureConfig) -> hugeMushroomFeatureConfig.stemWidth),
                             Codec.BOOL.fieldOf("turning").orElse(false).forGetter((hugeMushroomFeatureConfig) -> hugeMushroomFeatureConfig.turning),
                             Codec.FLOAT.fieldOf("turn_chance").orElse(0.3f).forGetter((hugeMushroomFeatureConfig) -> hugeMushroomFeatureConfig.turnChance),
                             Codec.INT.fieldOf("start_vertical_length").orElse(3).forGetter((hugeMushroomFeatureConfig) -> hugeMushroomFeatureConfig.startVerticalLength),
@@ -30,8 +33,8 @@ public class HugeMycorMushroomFeatureConfig implements FeatureConfig {
     public final BlockStateProvider capProvider;
     public final BlockStateProvider stemProvider;
     public final int foliageRadius;
-    public final int minStemHeight;
-    public final int maxStemHeight;
+    public final IntProvider stemHeight;
+    public final int stemWidth;
     public final boolean turning;
     public final float turnChance;
     public final int startVerticalLength;
@@ -44,12 +47,12 @@ public class HugeMycorMushroomFeatureConfig implements FeatureConfig {
     public final int maxBranchDepth;
     public final int maxBranchGrowth;
 
-    public HugeMycorMushroomFeatureConfig(BlockStateProvider capProvider, BlockStateProvider stemProvider, int foliageRadius, int minStemHeight, int maxStemHeight, boolean turning, float turnChance, int startVerticalLength, int endVerticalLength, int minHorizontalTurnDistance, int minVerticalTurnDistance, boolean branching, float branchChance, int maxBranchCount, int maxBranchDepth, int maxBranchGrowth) {
+    public HugeMycorMushroomFeatureConfig(BlockStateProvider capProvider, BlockStateProvider stemProvider, int foliageRadius, IntProvider stemHeight, int stemWidth, boolean turning, float turnChance, int startVerticalLength, int endVerticalLength, int minHorizontalTurnDistance, int minVerticalTurnDistance, boolean branching, float branchChance, int maxBranchCount, int maxBranchDepth, int maxBranchGrowth) {
         this.capProvider = capProvider;
         this.stemProvider = stemProvider;
         this.foliageRadius = foliageRadius;
-        this.minStemHeight = minStemHeight;
-        this.maxStemHeight = maxStemHeight;
+        this.stemHeight = stemHeight;
+        this.stemWidth = stemWidth;
         this.turning = turning;
         this.turnChance = turnChance;
         this.startVerticalLength = startVerticalLength;

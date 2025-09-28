@@ -4,9 +4,12 @@ import com.mojang.serialization.Codec;
 import io.github.cattacocattaco.mycor.Mycor;
 import io.github.cattacocattaco.mycor.misc.MutableInt;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.MushroomBlock;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.WorldAccess;
@@ -36,9 +39,9 @@ public abstract class HugeMycorMushroomFeature extends Feature<HugeMycorMushroom
 
         int newStepsSinceTurn = stepsSinceTurn + 1;
 
-        this.placeBlock(world, mutablePos, config.stemProvider.get(random, pos));
+        this.placeStemLayer(world, mutablePos, config.stemProvider.get(random, pos), from, config);
 
-        if((depth < height || currentHeight < config.minStemHeight) && currentHeight < config.maxStemHeight) {
+        if((depth < height || currentHeight < config.stemHeight.getMin()) && currentHeight < config.stemHeight.getMax()) {
             if(depth >= height - config.endVerticalLength) {
                 if(stepsSinceTurn < config.minHorizontalTurnDistance && from != Direction.UP) {
                     if(world.getBlockState((new BlockPos.Mutable()).set(mutablePos.toImmutable()).move(from)).isAir()) {
@@ -98,12 +101,58 @@ public abstract class HugeMycorMushroomFeature extends Feature<HugeMycorMushroom
         }
     }
 
+    protected void placeStemLayer(WorldAccess world, BlockPos.Mutable pos, BlockState state, Direction direction, HugeMycorMushroomFeatureConfig config) {
+        if (direction == Direction.UP || direction == Direction.DOWN) {
+            for(int x = pos.getX(); x < pos.getX() + config.stemWidth; ++x) {
+                for(int z = pos.getZ(); z < pos.getZ() + config.stemWidth; ++z) {
+                    boolean topExposed = false;
+                    boolean bottomExposed = false;
+                    boolean westExposed = x == pos.getX();
+                    boolean eastExposed = x == pos.getX() + config.stemWidth - 1;
+                    boolean northExposed = z == pos.getZ();
+                    boolean southExposed = z == pos.getZ() + config.stemWidth - 1;
+                    BlockState blockState = setMushroomExposure(state, topExposed, bottomExposed, westExposed, eastExposed, northExposed, southExposed);
+                    placeBlock(world, new BlockPos.Mutable(x, pos.getY(), z), blockState);
+                }
+            }
+        } else if (direction == Direction.NORTH || direction == Direction.SOUTH) {
+            for(int x = pos.getX(); x < pos.getX() + config.stemWidth; ++x) {
+                for(int y = pos.getY(); y < pos.getY() + config.stemWidth; ++y) {
+                    boolean topExposed = y == pos.getY();
+                    boolean bottomExposed = y == pos.getY() + config.stemWidth - 1;
+                    boolean westExposed = x == pos.getX();
+                    boolean eastExposed = x == pos.getX() + config.stemWidth - 1;
+                    boolean northExposed = false;
+                    boolean southExposed = false;
+                    BlockState blockState = setMushroomExposure(state, topExposed, bottomExposed, westExposed, eastExposed, northExposed, southExposed);
+                    placeBlock(world, new BlockPos.Mutable(x, y, pos.getZ()), blockState);
+                }
+            }
+        } else if (direction == Direction.EAST || direction == Direction.WEST) {
+            for(int y = pos.getY(); y < pos.getY() + config.stemWidth; ++y) {
+                for(int z = pos.getZ(); z < pos.getZ() + config.stemWidth; ++z) {
+                    boolean topExposed = y == pos.getY();
+                    boolean bottomExposed = y == pos.getY() + config.stemWidth - 1;
+                    boolean westExposed = false;
+                    boolean eastExposed = false;
+                    boolean northExposed = z == pos.getZ();
+                    boolean southExposed = z == pos.getZ() + config.stemWidth - 1;
+                    BlockState blockState = setMushroomExposure(state, topExposed, bottomExposed, westExposed, eastExposed, northExposed, southExposed);
+                    placeBlock(world, new BlockPos.Mutable(pos.getX(), y, z), state);
+                }
+            }
+        }
+    }
+
     protected void placeBlock(WorldAccess world, BlockPos.Mutable pos, BlockState state) {
         BlockState blockState = world.getBlockState(pos);
         if (blockState.isAir() || blockState.isIn(BlockTags.REPLACEABLE_BY_MUSHROOMS)) {
             this.setBlockState(world, pos, state);
         }
+    }
 
+    protected BlockState setMushroomExposure(BlockState state, boolean top, boolean bottom, boolean west, boolean east, boolean north, boolean south) {
+        return state.with(MushroomBlock.UP, top).with(MushroomBlock.DOWN, bottom).with(MushroomBlock.WEST, west).with(MushroomBlock.EAST, east).with(MushroomBlock.NORTH, north).with(MushroomBlock.SOUTH, south);
     }
 
     protected Direction getRandomEmptyDirection(WorldAccess world, Random random, BlockPos.Mutable mutablePos, Direction avoid) {
@@ -161,7 +210,7 @@ public abstract class HugeMycorMushroomFeature extends Feature<HugeMycorMushroom
     }
 
     protected int getHeight(Random random, HugeMycorMushroomFeatureConfig config) {
-        int i = random.nextInt(config.maxStemHeight - config.minStemHeight) + config.minStemHeight;
+        int i = config.stemHeight.get(random);
         if (random.nextInt(120) == 0) {
             i *= 2;
         }
